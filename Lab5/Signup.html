@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+</head>
+<body>
+
+<h1>Sign up here! </h1>
+
+<form>
+    Username: <input type="text" name="username" /><br>
+    Password: <input type="text" name="password" /><br>
+    <input type="submit" id="submit"/>
+</form>
+
+<p>Already signed up? Click here to be taken to the login page.</p>
+<button onclick="goToLogin()">Login</button>
+
+<hr>
+<div id="myDiv"></div>
+
+<script>
+    $(document).ready(function() {
+        console.log("In ready");
+
+// second way - attach ANONYMOUS handler
+// (makes sense to not give names to one-time time use handlers)
+        function goToLogin(){
+            location = "Login.html";
+        }
+
+        console.log("About to attach handler");
+
+        function writeToFile(d1, d2){
+            var fso = new ActiveXObject("Scripting.FileSystemObject");
+            var fh = fso.OpenTextFile("users.txt", 8, false, 0);
+            fh.WriteLine(d1 + ',' + d2);
+            fh.Close();
+        }
+        var submit = $("#submit");
+        submit.onclick = function () {
+            var username      = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            writeToFile(username, password);
+        }
+
+//        sub.click (function () {
+//            alert("Storing username and password. Generating public/private key");
+//            $.get("CheckLogin.php?username="+document.getElementById("username").value+"&password="+document.getElementById("password").value,
+//                    function(data,status) {
+//                        if(data==1){
+//                            alert("Username already exists. Make new username or login");
+//                        }else{
+//                            alert("Your Username or Password are Incorrect.");
+//                        }
+//
+//                    });
+//            // that's a callback function!
+//        });
+
+    }); // end of document ready function
+    console.log("JS");
+
+</script>
+
+
+</body>
+</html>
